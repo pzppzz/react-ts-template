@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"baseUrl": ".",
+		"types": ["./env.d.ts"],
+		/* Visit https://aka.ms/tsconfig to read more about this file */
+		"moduleResolution": "Node",
+		"target": "ES2020",
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"module": "ESNext",
+		"rootDir": "./",
+		"allowJs": false,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"skipLibCheck": true,
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"include": ["src"]
+}

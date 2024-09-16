@@ -1,0 +1,8 @@
+root=true
+node_modules
+build
+dist
+
+.DS_Store
+*.lock
+*.log

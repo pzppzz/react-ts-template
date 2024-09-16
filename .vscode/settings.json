@@ -1,0 +1,12 @@
+{
+	"editor.formatOnSave": true,
+	"files.exclude": {
+		"**/.git": false
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "explicit",
+		"source.fixAll.stylelint": "explicit",
+		"source.fixAll.eslint": "explicit"
+	},
+	"stylelint.validate": ["css", "less", "postcss", "scss", "sass"]
+}
