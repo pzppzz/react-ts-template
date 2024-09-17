@@ -1,10 +1,10 @@
 import { merge } from "webpack-merge";
+import cssnano from "cssnano";
 import HTMLWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import resolvePath from "../utils/resolvePath.js";
 import DEVELOPMENT_CONFIG from "./webpack.dev.js";
 import PRODUCTION_CONFIG from "./webpack.prod.js";
-
 const isDev = process.env.NODE_ENV === "development";
 
 const BASE_CONFIG = {
@@ -97,7 +97,13 @@ const BASE_CONFIG = {
 						loader: "postcss-loader",
 						options: {
 							postcssOptions: {
-								plugins: ["postcss-preset-env"],
+								plugins: [
+									"postcss-preset-env",
+									!isDev &&
+										cssnano({
+											preset: "default",
+										}),
+								].filter(Boolean),
 							},
 						},
 					},
@@ -123,10 +129,13 @@ const BASE_CONFIG = {
 		removeEmptyChunks: true,
 		providedExports: true,
 		usedExports: true,
+		runtimeChunk: {
+			name: "runtime",
+		},
 		splitChunks: {
 			chunks: "all",
 			minChunks: 1,
-			minSize: 20000,
+			minSize: 1,
 			cacheGroups: isDev
 				? {
 						default: {
@@ -146,6 +155,10 @@ const BASE_CONFIG = {
 							name: "vendor",
 							priority: 10,
 						},
+						common: {
+							name: "common",
+							priority: 0,
+						},
 					},
 		},
 	},
@@ -160,7 +173,10 @@ const BASE_CONFIG = {
 		new HTMLWebpackPlugin({
 			template: resolvePath("public/index.html"),
 		}),
-		new MiniCssExtractPlugin(),
+		new MiniCssExtractPlugin({
+			filename: "css/[name].[contenthash].css",
+			chunkFilename: "css/chunk.[name].[contenthash].css",
+		}),
 	],
 };
 

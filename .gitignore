@@ -1,7 +1,9 @@
-root=true
 node_modules
 build
 dist
+
+.eslintcache
+.stylelintcache
 
 .DS_Store
 *.lock

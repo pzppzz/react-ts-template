@@ -11,11 +11,11 @@
 	},
 	"exports": "./index.js",
 	"lint-staged": {
-		"src/**/*.{js,ts,tsx}": [
+		"*.{js,ts,tsx}": [
 			"prettier --write",
 			"eslint --fix"
 		],
-		"src/**/*.{css,less}": [
+		"*.{css,less}": [
 			"stylelint --fix"
 		]
 	},
@@ -29,12 +29,15 @@
 		"dev": "cross-env NODE_ENV=development webpack serve --env development --config ./webpack/config/webpack.config.js",
 		"build": "cross-env NODE_ENV=production webpack --config ./webpack/config/webpack.config.js",
 		"prepare": "husky",
-		"lint": "lint-staged",
-		"eslint": "eslint src/**/*.{js,ts,tsx}",
-		"eslint:fix": "eslint --fix src/**/*.{js,ts,tsx}",
-		"stylelint": "stylelint src/**/*.{css,less}",
-		"stylelint:fix": "stylelint --fix src/**/*.{css,less}",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"lint": "yarn lint:eslint && yarn lint:prettier && yarn lint:stylelint",
+		"lint:fix": "yarn lint:eslint:fix && yarn lint:prettier:fix && yarn lint:stylelint:fix",
+		"lint:eslint": "eslint . --ext .js,.ts,.tsx --cache",
+		"lint:eslint:fix": "yarn lint:eslint --fix",
+		"lint:prettier": "prettier --ignore-unknown --cache --check .",
+		"lint:prettier:fix": "prettier --ignore-unknown --cache --write .",
+		"lint:stylelint": "stylelint \"src/**/*.{css,less}\" --cache",
+		"lint:stylelint:fix": "yarn lint:stylelint --fix",
+		"test": "echo \"Warn: no test specified\""
 	},
 	"dependencies": {
 		"classnames": "^2.5.1",
@@ -54,6 +57,7 @@
 		"cross-env": "^7.0.3",
 		"css-loader": "^7.1.1",
 		"css-minimizer-webpack-plugin": "^7.0.0",
+		"cssnano": "^7.0.6",
 		"eslint": "8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-prettier": "^5.1.3",

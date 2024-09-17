@@ -5,7 +5,7 @@ export default {
 	entry: resolvePath("src/index.tsx"),
 	output: {
 		filename: "js/[name].[contenthash:8].js",
-		chunkFilename: "js/chunk.[name].[chunkhash:8].js",
+		chunkFilename: "js/chunk.[id].[chunkhash:8].js",
 		assetModuleFilename: "assets/[name].[contenthash:8][ext][query]",
 		clean: true,
 	},
